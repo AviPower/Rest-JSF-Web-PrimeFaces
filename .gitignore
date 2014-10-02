@@ -1,0 +1,28 @@
+target/
+*.pydevproject
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+.classpath
+.project
+
+#Archivos generados por NetBeans
+faces-config.NavData
+nb-configuration.xml
+
+ 
