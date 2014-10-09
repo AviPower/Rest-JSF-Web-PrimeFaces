@@ -24,5 +24,6 @@ local.properties
 #Archivos generados por NetBeans
 faces-config.NavData
 nb-configuration.xml
+nbactions.xml
 
  

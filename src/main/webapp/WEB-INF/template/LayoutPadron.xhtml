@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title><ui:insert name="titulo">Sistema de Gestion de Compras</ui:insert></title>
+        <h:outputStylesheet library="css" name="sistema.css" />
+        <link rel="icon" type="image/vnd.microsoft.icon" href="/resources/images/favicon.ico"/>
+	</h:head>
+
+	<h:body>
+		<div align="center">
+			<header>
+				<div style="float: left; margin-right: 10px">
+					<h:link>
+						<h:graphicImage library="images" name="logo_fal.jpg" width = "100" height = "55"/>
+					</h:link>
+				</div>
+				
+				<div style="margin-right: 20px; vertical-align: top;">			
+					
+					<h:form >
+				        <p:menubar id="menuBar" styleClass="menu-sistema">
+				            <p:menuitem value="Inicio" url="main.xhtml" icon="ui-icon-home"/>
+				            <p:submenu label="Administracion de Datos" icon="ui-icon-gear">
+				                <p:menuitem value="Producto"/>
+				                <p:menuitem value="Proveedor"/>
+				                <p:menuitem value="Compra"/>
+				            </p:submenu>
+				            <f:facet name="options">
+				            <table style="vertical-align: top; margin-top: 0px; padding-top: 0px;">
+				            	<tr>
+				            		<td>
+				            			<span style="margin-left: 30px; margin-right:5px; font-weight: bold">
+										Bienvenido
+										</span>				            		
+				            		</td>				            		
+				            	</tr>
+				            </table>				            	
+				                
+				            </f:facet>
+				        </p:menubar>
+				    </h:form>
+				</div>
+				<div style="clear: both"></div>
+				
+			</header>
+			
+			<div id="contenido"  align="center">
+				<p:growl id="growl" life="3000" />
+				<ui:insert name="cuerpo"/>
+			</div>
+			
+			<footer>
+				<hr />
+				FAL Group. Todos los derechos reservados.
+			</footer>
+		</div>
+	</h:body>
+
+</html>

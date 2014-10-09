@@ -1,0 +1,152 @@
+@charset "utf-8";
+
+@font-face{
+	font-family: "Swis721 Cn BT";
+	src: url(#{resource['fonts:SWZ721C.TTF']}) format("truetype");
+}
+
+@font-face{
+	font-family: "Swis721 BT";
+	src: url(#{resource['fonts:SWZ721B.TTF']}) format("truetype");
+}
+
+@font-face{
+	font-family: "Myriad Pro";
+	src: url(#{resource['fonts:MyriadPro-Regular.otf']});
+}
+
+@font-face{
+	font-family: "Swis721 Lt BT";
+	src: url(#{resource['fonts:SWZ721L.TTF']});
+}
+
+body {
+	font-size: 12px;
+	font-family: Myriad Pro, Swis721 Cn BT, Swis721 Lt BT;
+	margin: 0px;
+	font-weight: normal;	
+	background-color: #1C3527;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+body > div {
+	width: 1000px;
+	max-width: 900;
+	background-color: #F6F6F6;
+}
+
+html{
+	display: table;
+    margin: auto;
+}
+
+header {
+	padding: 5px 0px;
+	margin-bottom: 20px;
+	height: 52px;
+	
+	background-color: #DADADA;
+	color: #3F3F3F;
+	
+	box-shadow: 0px 2px 2px #ccc;
+}
+
+header > div {
+	margin-left: 8px
+}
+
+#contenido {
+	padding: 0px 8px
+}
+
+footer {
+	padding: 0px 8px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+h1 {
+	font-size: 24px;
+	font-weight: 500;
+	padding: 0px;
+	margin: 0px
+}
+
+#login-dialog {
+	width: 290px;
+	margin: auto;
+	margin-top: 150px;
+}
+
+.grid-login {
+	background-color: #f2f2f2;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+	margin-top: 8px;
+	padding: 10px
+}
+
+.rotulo {
+	width: 150px
+}
+
+.ui-panelgrid td {
+	height: 34px
+}
+
+.ajax-status {
+	position: fixed;
+	top: 55px;
+	right: 10px;
+	width: 35px;
+	height: 35px
+}
+
+.ui-selectmanycheckbox td {
+	border-width: 0px !important;
+	padding: 0px !important;
+}
+
+.producto-tabla input{
+	width: 99%;
+}
+
+.ui-selectmanycheckbox td label {
+	padding-right: 10px;
+}
+
+/* Customiza TabView - início */
+.ui-tabs .ui-tabs-panel {
+    padding: 0.5em 0.2em !important;
+}
+
+.ui-tabs {
+    padding: 0px !important;
+}
+
+.ui-tabs .ui-tabs-nav {
+    margin: -1px !important;
+}
+
+.ui-tabs.ui-tabs-top > .ui-tabs-nav {
+    padding: 0px !important;
+}
+/* Customiza TabView - fim */
+
+/* Menu sistema inicio */
+.menu-sistema {
+    border: 0px !important;
+    padding: 0px !important;
+    background: none !important;
+    padding-right: 50px;
+}
+
+.menu-sistema .ui-menu-parent > a .ui-menuitem-text, .menu-sistema > .ui-menu-list > .ui-menuitem > a > .ui-menuitem-text {
+    color: #3F3F3F !important;
+}
+
+.menu-sistema .ui-icon-triangle-1-s {
+   
+}
+/* Menu sistema fin */
