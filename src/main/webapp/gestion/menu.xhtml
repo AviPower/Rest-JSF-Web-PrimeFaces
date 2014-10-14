@@ -10,9 +10,9 @@
         <p:menubar id="menuBar">
             <p:menuitem value="Inicio" url="/gestion/main.xhtml" icon="ui-icon-home"/>
             <p:submenu label="Administracion de Datos" icon="ui-icon-gear">
-                <p:menuitem value="Producto" />
-                <p:menuitem value="Proveedor"  />
-                <p:menuitem value="Compra" />
+                <p:menuitem value="Producto" outcome="/gestion/producto/ListadoProducto.xhtml"/>
+                <p:menuitem value="Proveedor" outcome="/gestion/proveedor/ListadoProveedor.xhtml" />
+                <p:menuitem value="Cliente" outcome="/gestion/cliente/ListadoCliente.xhtml" />
             </p:submenu>
         </p:menubar>
     </h:form>

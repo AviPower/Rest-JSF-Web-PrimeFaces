@@ -26,11 +26,19 @@
 					
 					<h:form >
 				        <p:menubar id="menuBar" styleClass="menu-sistema">
-				            <p:menuitem value="Inicio" url="main.xhtml" icon="ui-icon-home"/>
+				            <p:menuitem value="Inicio" url="/gestion/main.xhtml" icon="ui-icon-home"/>
 				            <p:submenu label="Administracion de Datos" icon="ui-icon-gear">
-				                <p:menuitem value="Producto"/>
-				                <p:menuitem value="Proveedor"/>
-				                <p:menuitem value="Compra"/>
+				                <p:menuitem value="Producto" outcome="/gestion/producto/ListadoProducto.xhtml"/>
+                                                <p:menuitem value="Proveedor" outcome="/gestion/proveedor/ListadoProveedor.xhtml" />
+                                                <p:menuitem value="Cliente" outcome="/gestion/cliente/ListadoCliente.xhtml" />
+				            </p:submenu>
+                                            <p:submenu label="Gestiones" icon="ui-icon-gear">
+				                <p:menuitem value="Compra" outcome="/gestion/producto/ListadoProducto.xhtml"/>
+                                                <p:menuitem value="Venta" outcome="/gestion/proveedor/ListadoProveedor.xhtml" />
+                                                <p:menuitem value="Cliente" outcome="/gestion/cliente/ListadoCliente.xhtml" />
+				            </p:submenu>
+                                            <p:submenu label="Procesos" icon="ui-icon-gear">
+				                <p:menuitem value="Facturacion" outcome="/gestion/producto/ListadoProducto.xhtml"/>
 				            </p:submenu>
 				            <f:facet name="options">
 				            <table style="vertical-align: top; margin-top: 0px; padding-top: 0px;">

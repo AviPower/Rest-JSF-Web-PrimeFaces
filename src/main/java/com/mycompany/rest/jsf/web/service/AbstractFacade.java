@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 
-package com.mycompany.rest.angular.web.service;
+package com.mycompany.rest.jsf.web.service;
 
 import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
  *
- * @author rodrigo
+ * @author alvarenga
  */
 public abstract class AbstractFacade<T> {
     private Class<T> entityClass;

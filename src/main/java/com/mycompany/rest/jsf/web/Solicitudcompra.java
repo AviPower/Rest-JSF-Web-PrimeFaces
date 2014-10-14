@@ -4,62 +4,68 @@
  * and open the template in the editor.
  */
 
-package com.mycompany.rest.angular.web;
+package com.mycompany.rest.jsf.web;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author rodrigo
+ * @author alvarenga
  */
 @Entity
-@Table(name = "detallecompraventa")
+@Table(name = "solicitudcompra")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Detallecompraventa.findAll", query = "SELECT d FROM Detallecompraventa d"),
-    @NamedQuery(name = "Detallecompraventa.findById", query = "SELECT d FROM Detallecompraventa d WHERE d.id = :id"),
-    @NamedQuery(name = "Detallecompraventa.findByCantidad", query = "SELECT d FROM Detallecompraventa d WHERE d.cantidad = :cantidad")})
-public class Detallecompraventa implements Serializable {
+    @NamedQuery(name = "Solicitudcompra.findAll", query = "SELECT s FROM Solicitudcompra s"),
+    @NamedQuery(name = "Solicitudcompra.findById", query = "SELECT s FROM Solicitudcompra s WHERE s.id = :id"),
+    @NamedQuery(name = "Solicitudcompra.findByFecha", query = "SELECT s FROM Solicitudcompra s WHERE s.fecha = :fecha"),
+    @NamedQuery(name = "Solicitudcompra.findByHora", query = "SELECT s FROM Solicitudcompra s WHERE s.hora = :hora")})
+public class Solicitudcompra implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cantidad")
-    private int cantidad;
-    @JoinColumn(name = "compraventa", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Compraventa compraventa;
+    @Column(name = "fecha")
+    @Temporal(TemporalType.DATE)
+    private Date fecha;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "hora")
+    @Temporal(TemporalType.TIME)
+    private Date hora;
     @JoinColumn(name = "producto", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Producto producto;
 
-    public Detallecompraventa() {
+    public Solicitudcompra() {
     }
 
-    public Detallecompraventa(Integer id) {
+    public Solicitudcompra(Integer id) {
         this.id = id;
     }
 
-    public Detallecompraventa(Integer id, int cantidad) {
+    public Solicitudcompra(Integer id, Date fecha, Date hora) {
         this.id = id;
-        this.cantidad = cantidad;
+        this.fecha = fecha;
+        this.hora = hora;
     }
 
     public Integer getId() {
@@ -70,20 +76,20 @@ public class Detallecompraventa implements Serializable {
         this.id = id;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
-    public Compraventa getCompraventa() {
-        return compraventa;
+    public Date getHora() {
+        return hora;
     }
 
-    public void setCompraventa(Compraventa compraventa) {
-        this.compraventa = compraventa;
+    public void setHora(Date hora) {
+        this.hora = hora;
     }
 
     public Producto getProducto() {
@@ -104,10 +110,10 @@ public class Detallecompraventa implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Detallecompraventa)) {
+        if (!(object instanceof Solicitudcompra)) {
             return false;
         }
-        Detallecompraventa other = (Detallecompraventa) object;
+        Solicitudcompra other = (Solicitudcompra) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -116,7 +122,7 @@ public class Detallecompraventa implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.rest.angular.web.Detallecompraventa[ id=" + id + " ]";
+        return "com.mycompany.rest.jsf.web.Solicitudcompra[ id=" + id + " ]";
     }
     
 }

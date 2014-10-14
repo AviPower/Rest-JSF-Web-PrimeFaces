@@ -4,15 +4,14 @@
  * and open the template in the editor.
  */
 
-package com.mycompany.rest.angular.web;
+package com.mycompany.rest.jsf.web;
 
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,10 +23,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
- * @author rodrigo
+ * @author alvarenga
  */
 @Entity
 @Table(name = "producto")
@@ -38,12 +38,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Producto.findByNombre", query = "SELECT p FROM Producto p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Producto p WHERE p.descripcion = :descripcion"),
     @NamedQuery(name = "Producto.findByPrecio", query = "SELECT p FROM Producto p WHERE p.precio = :precio"),
-    @NamedQuery(name = "Producto.findByCantidad", query = "SELECT p FROM Producto p WHERE p.cantidad = :cantidad")})
+    @NamedQuery(name = "Producto.findByStock", query = "SELECT p FROM Producto p WHERE p.stock = :stock")})
 public class Producto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
@@ -62,13 +62,17 @@ public class Producto implements Serializable {
     private int precio;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cantidad")
-    private int cantidad;
-    @OneToMany(mappedBy = "producto")
-    private Collection<Detallecompraventa> detallecompraventaCollection;
+    @Column(name = "stock")
+    private int stock;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
+    private Collection<Ventadetalle> ventadetalleCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
+    private Collection<Solicitudcompra> solicitudcompraCollection;
     @JoinColumn(name = "proveedor", referencedColumnName = "id")
     @ManyToOne
     private Proveedor proveedor;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
+    private Collection<Compradetalle> compradetalleCollection;
 
     public Producto() {
     }
@@ -77,12 +81,12 @@ public class Producto implements Serializable {
         this.id = id;
     }
 
-    public Producto(Integer id, String nombre, String descripcion, int precio, int cantidad) {
+    public Producto(Integer id, String nombre, String descripcion, int precio, int stock) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.cantidad = cantidad;
+        this.stock = stock;
     }
 
     public Integer getId() {
@@ -117,21 +121,32 @@ public class Producto implements Serializable {
         this.precio = precio;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public int getStock() {
+        return stock;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     @XmlTransient
-    public Collection<Detallecompraventa> getDetallecompraventaCollection() {
-        return detallecompraventaCollection;
+    @JsonIgnore
+    public Collection<Ventadetalle> getVentadetalleCollection() {
+        return ventadetalleCollection;
     }
 
-    public void setDetallecompraventaCollection(Collection<Detallecompraventa> detallecompraventaCollection) {
-        this.detallecompraventaCollection = detallecompraventaCollection;
+    public void setVentadetalleCollection(Collection<Ventadetalle> ventadetalleCollection) {
+        this.ventadetalleCollection = ventadetalleCollection;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<Solicitudcompra> getSolicitudcompraCollection() {
+        return solicitudcompraCollection;
+    }
+
+    public void setSolicitudcompraCollection(Collection<Solicitudcompra> solicitudcompraCollection) {
+        this.solicitudcompraCollection = solicitudcompraCollection;
     }
 
     public Proveedor getProveedor() {
@@ -140,6 +155,16 @@ public class Producto implements Serializable {
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<Compradetalle> getCompradetalleCollection() {
+        return compradetalleCollection;
+    }
+
+    public void setCompradetalleCollection(Collection<Compradetalle> compradetalleCollection) {
+        this.compradetalleCollection = compradetalleCollection;
     }
 
     @Override
@@ -164,7 +189,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.rest.angular.web.Producto[ id=" + id + " ]";
+        return "com.mycompany.rest.jsf.web.Producto[ id=" + id + " ]";
     }
     
 }

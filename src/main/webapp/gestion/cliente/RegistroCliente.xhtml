@@ -1,0 +1,50 @@
+<ui:composition template="/WEB-INF/template/LayoutPadron.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+	
+	<ui:define name="titulo">#{registroProducto.editando ? 'Editar Cliente' : 'Cliente'}</ui:define>
+	
+	<ui:define name="cuerpo">
+
+		<h:form>
+			<h1>Cliente</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Guardar" id="botonGuardar" 
+					 update="@form"/>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Volver" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="panel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+                                <p:outputLabel value="Cedula" for="cedula" />
+				<p:inputText id="cedula"
+					 size="40"
+					maxlength="70" />
+	    		
+				<p:outputLabel value="Nombre" for="nombre" />
+				<p:inputText id="nombre"
+					 size="60"
+					maxlength="70" />
+	    		
+                                <p:outputLabel value="Apellido" for="apellido" />
+				<p:inputText id="apellido"
+					 size="60"
+					maxlength="70" />
+
+			</p:panelGrid>
+		</h:form>
+	
+	</ui:define>
+	
+</ui:composition>

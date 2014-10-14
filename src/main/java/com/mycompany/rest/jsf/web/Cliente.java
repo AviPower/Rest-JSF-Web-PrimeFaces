@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.mycompany.rest.angular.web;
+package com.mycompany.rest.jsf.web;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -12,8 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -23,10 +21,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
- * @author rodrigo
+ * @author alvarenga
  */
 @Entity
 @Table(name = "cliente")
@@ -40,8 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
@@ -59,7 +58,7 @@ public class Cliente implements Serializable {
     @Column(name = "ci")
     private int ci;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private Collection<Compraventa> compraventaCollection;
+    private Collection<Venta> ventaCollection;
 
     public Cliente() {
     }
@@ -108,12 +107,13 @@ public class Cliente implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Compraventa> getCompraventaCollection() {
-        return compraventaCollection;
+    @JsonIgnore
+    public Collection<Venta> getVentaCollection() {
+        return ventaCollection;
     }
 
-    public void setCompraventaCollection(Collection<Compraventa> compraventaCollection) {
-        this.compraventaCollection = compraventaCollection;
+    public void setVentaCollection(Collection<Venta> ventaCollection) {
+        this.ventaCollection = ventaCollection;
     }
 
     @Override
@@ -138,7 +138,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.rest.angular.web.Cliente[ id=" + id + " ]";
+        return "com.mycompany.rest.jsf.web.Cliente[ id=" + id + " ]";
     }
     
 }

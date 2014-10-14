@@ -4,12 +4,10 @@
  * and open the template in the editor.
  */
 
-package com.mycompany.rest.angular.web.service;
+package com.mycompany.rest.jsf.web.service;
 
-import com.mycompany.rest.angular.web.Producto;
-import com.mycompany.rest.angular.web.bean.ProductoBean;
+import com.mycompany.rest.jsf.web.Producto;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,64 +19,72 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author rodrigo
+ * @author alvarenga
  */
 @Stateless
-@Path("producto")
-public class ProductoFacadeREST {
+@Path("com.mycompany.rest.jsf.web.producto")
+public class ProductoFacadeREST extends AbstractFacade<Producto> {
+    @PersistenceContext(unitName = "com.mycompany_Rest-Angular-Web_war_1.0-SNAPSHOTPU")
+    private EntityManager em;
 
-    @EJB
-    private ProductoBean productobean;
-    
+    public ProductoFacadeREST() {
+        super(Producto.class);
+    }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Override
+    @Consumes({"application/xml", "application/json"})
     public void create(Producto entity) {
-        productobean.create(entity);
+        super.create(entity);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({"application/xml", "application/json"})
     public void edit(@PathParam("id") Integer id, Producto entity) {
-        productobean.edit(id,entity);
+        super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
-        productobean.remove(id);
+        super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({"application/xml", "application/json"})
     public Producto find(@PathParam("id") Integer id) {
-        return productobean.find(id);
+        return super.find(id);
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Override
+    @Produces({"application/xml", "application/json"})
     public List<Producto> findAll() {
-        return productobean.findAll();
+        return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({"application/xml", "application/json"})
     public List<Producto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return productobean.findRange(new int[]{from, to});
+        return super.findRange(new int[]{from, to});
     }
 
     @GET
     @Path("count")
     @Produces("text/plain")
     public String countREST() {
-        return productobean.countBEAN();
+        return String.valueOf(super.count());
     }
- 
+
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+    
 }
