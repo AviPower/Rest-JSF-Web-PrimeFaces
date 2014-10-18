@@ -1,0 +1,77 @@
+<ui:composition template="/WEB-INF/template/LayoutPadron.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">>
+
+    <ui:define name="titulo">Listado de Compras</ui:define>
+    
+    <ui:define name="cuerpo">
+    
+    	
+    
+    	<h:form id="frmBusqueda">
+	    	<h1>Listado de Compras</h1>
+	    	
+	    	<p:messages autoUpdate="true" closable="true" />
+                
+	    	<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup align="center">
+                                <p:outputLabel value="Proveedor  " for="proveedor"/>
+                                    <p:selectOneMenu id="proveedor"  style="width:200px">
+                                            <f:selectItem itemLabel="Seleccione el Proveedor"/>
+                                            <f:selectItems  var="proveedor"
+                                                      />
+                                    </p:selectOneMenu>
+	    				<p:button value="Nueva Compra" outcome="/gestion/compra/RegistroCompra.xhtml"/>
+                                </p:toolbarGroup>
+			</p:toolbar>
+                
+	    	<p:dataTable id="productoTable"  var="producto"
+	    		 style="margin-top: 20px" 
+	    		emptyMessage="Ningun Registro encontrado. Presione el botón Nuevo para agregar un nuevo ítem" rows="10"
+	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+	    		
+	    		<p:column headerText="Código" style="width:40px">
+	    			<h:outputText value="" />
+	    		</p:column>
+	    		<p:column  headerText="Proveedor" style="width:140px"
+	    			filterMatchMode="contains" filterStyle="width:50px">
+	    			
+	    		</p:column>
+	    		
+	    		<p:column  headerText="Total" style="width:100px"
+	    			filterMatchMode="contains" filterStyle="width:20px">
+	    			
+	    		</p:column>
+	    		
+	    		<p:column style="width: 100px; text-align: center">
+	    		
+	    			<f:facet name="header">
+	    				<p:button value="Eliminar" />
+	    			</f:facet>
+	    			
+	    			<p:button  icon="ui-icon-pencil" title="Editar">
+	    				<f:param name="producto" />
+	    			</p:button>
+	    			<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmacionExclusion.show()"
+	    					process="@this" update=":frmBusqueda:confirmacionExclusion">
+	    				
+	    			</p:commandButton>
+	    		</p:column>
+	    	</p:dataTable>
+	    	
+	    	<p:confirmDialog header="Exclusión de Producto" 
+	    		message="Esta seguro que desea excluir el producto ?"
+	    		widgetVar="confirmacionExclusion"	id="confirmacionExclusion">
+	    		<p:button value="No" onclick="confirmacionExclusion.hide(); return false;" />
+	    		<p:commandButton value="Si" oncomplete="confirmacionExclusion.hide();"
+	    			 process="@this"
+	    			update=":frmBusqueda:productoTable" />
+	    	</p:confirmDialog>
+    	</h:form>
+    </ui:define>
+</ui:composition>
+

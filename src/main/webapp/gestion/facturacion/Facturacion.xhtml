@@ -1,0 +1,48 @@
+<ui:composition template="/WEB-INF/template/LayoutPadron.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">>
+
+    <ui:define name="titulo">Búsqueda de Productos</ui:define>
+    
+    <ui:define name="cuerpo">
+    
+    	
+    
+    	<h:form id="frmBusqueda">
+	    	<h1>Listado de  Facturas</h1>
+	    	
+	    	<p:messages autoUpdate="true" closable="true" />
+	    	<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup align="center">
+	    				<p:button value="Generar Factura" outcome="/gestion/venta/RegistroVenta.xhtml"/>
+                                        <p:button value="Detener Proceso de Facturacion" outcome="/gestion/venta/RegistroVenta.xhtml"/>
+                                </p:toolbarGroup>
+			</p:toolbar>
+                <h2>Estado de Facturacion</h2>
+	    	<p:dataTable id="productoTable"  var="producto"
+	    		  style="width:500px"
+	    		emptyMessage="No existe Proceso de facturacion corriendo" rows="10"
+	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+	    		
+	    		<p:column headerText="Estado de Facturacion" style="width:40px">
+	    			<h:outputText value="" />
+	    		</p:column>
+	    		
+	    	</p:dataTable>
+	    	
+	    	<p:confirmDialog header="Exclusión de Producto" 
+	    		message="Esta seguro que desea excluir el producto ?"
+	    		widgetVar="confirmacionExclusion"	id="confirmacionExclusion">
+	    		<p:button value="No" onclick="confirmacionExclusion.hide(); return false;" />
+	    		<p:commandButton value="Si" oncomplete="confirmacionExclusion.hide();"
+	    			 process="@this"
+	    			update=":frmBusqueda:productoTable" />
+	    	</p:confirmDialog>
+    	</h:form>
+    </ui:define>
+</ui:composition>
+

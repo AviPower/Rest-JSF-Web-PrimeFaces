@@ -1,0 +1,58 @@
+<ui:composition template="/WEB-INF/template/LayoutPadron.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">>
+
+    <ui:define name="titulo">Búsqueda de Ordenes de Compra</ui:define>
+    
+    <ui:define name="cuerpo">
+    
+    	
+    
+    	<h:form id="frmBusqueda">
+	    	<h1>Ordenes de Compras</h1>
+	    	
+	    	<p:messages autoUpdate="true" closable="true" />
+	    	
+	    	<p:dataTable id="productoTable"  var="producto"
+	    		 style="margin-top: 20px" 
+	    		emptyMessage="Ningun producto encontrado. Presione el botón Nuevo para agregar un nuevo ítem" rows="10"
+	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+	    		
+	    		<p:column headerText="Código" style="width:70px">
+	    			<h:outputText value="" />
+	    		</p:column>
+                        <p:column headerText="Fecha" style="width:80px">
+	    			<h:outputText value="" />
+	    		</p:column>
+	    		<p:column  headerText="Producto" style="width:100px"
+	    			filterMatchMode="contains" filterStyle="width:200px">
+	    			
+	    		</p:column>
+	    		
+	    		<p:column  headerText="Proveedor" style="width:100px"
+	    			filterMatchMode="contains" filterStyle="width:120px">
+	    			
+	    		</p:column>
+                        <p:column  headerText="Stock Escaso" style="width:100px"
+	    			filterMatchMode="contains" filterStyle="width:120px">
+	    			
+	    		</p:column>
+	    		
+	    	</p:dataTable>
+	    	
+	    	<p:confirmDialog header="Exclusión de Producto" 
+	    		message="Esta seguro que desea excluir el producto ?"
+	    		widgetVar="confirmacionExclusion"	id="confirmacionExclusion">
+	    		<p:button value="No" onclick="confirmacionExclusion.hide(); return false;" />
+	    		<p:commandButton value="Si" oncomplete="confirmacionExclusion.hide();"
+	    			 process="@this"
+	    			update=":frmBusqueda:productoTable" />
+	    	</p:confirmDialog>
+    	</h:form>
+    </ui:define>
+</ui:composition>
+
