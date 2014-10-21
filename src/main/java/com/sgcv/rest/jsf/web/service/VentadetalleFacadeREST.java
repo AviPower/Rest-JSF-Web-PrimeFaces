@@ -6,8 +6,10 @@
 
 package com.sgcv.rest.jsf.web.service;
 
+import com.sgcv.rest.jsf.web.bean.VentadetalleBean;
 import com.sgcv.rest.jsf.web.model.Ventadetalle;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,67 +27,55 @@ import javax.ws.rs.core.MediaType;
  *
  * @author alvarenga
  */
-@Stateless
 @Path("ventadetalle")
-public class VentadetalleFacadeREST extends AbstractFacade<Ventadetalle> {
-    @PersistenceContext(unitName = "Rest-JSF-Web-PrimeFaces_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
-
-    public VentadetalleFacadeREST() {
-        super(Ventadetalle.class);
-    }
+public class VentadetalleFacadeREST {
+    @EJB
+    private VentadetalleBean ventadetallebean;
 
     @POST
-    @Override
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(Ventadetalle entity) {
-        super.create(entity);
+        ventadetallebean.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void edit(@PathParam("id") Integer id, Ventadetalle entity) {
-        super.edit(entity);
+        ventadetallebean.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
+        ventadetallebean.remove(ventadetallebean.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Ventadetalle find(@PathParam("id") Integer id) {
-        return super.find(id);
+        return ventadetallebean.find(id);
     }
 
     @GET
-    @Override
     @Produces(MediaType.APPLICATION_JSON)
     public List<Ventadetalle> findAll() {
-        return super.findAll();
+        return ventadetallebean.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Ventadetalle> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+        return ventadetallebean.findRange(new int[]{from, to});
     }
 
     @GET
     @Path("count")
     @Produces("text/plain")
     public String countREST() {
-        return String.valueOf(super.count());
-    }
-
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
+        return String.valueOf(ventadetallebean.count());
     }
     
 }

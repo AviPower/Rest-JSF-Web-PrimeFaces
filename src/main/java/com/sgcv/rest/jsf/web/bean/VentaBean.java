@@ -6,7 +6,7 @@
 
 package com.sgcv.rest.jsf.web.bean;
 
-import com.sgcv.rest.jsf.web.model.Proveedor;
+import com.sgcv.rest.jsf.web.model.Venta;
 import com.sgcv.rest.jsf.web.service.AbstractFacade;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -18,47 +18,46 @@ import javax.persistence.PersistenceContext;
  * @author alvarenga
  */
 @Stateless
-public class ProveedorBean extends AbstractFacade<Proveedor>{
+public class VentaBean extends AbstractFacade<Venta> {
     @PersistenceContext(unitName = "Rest-JSF-Web-PrimeFaces_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
-    public ProveedorBean() {
-        super(Proveedor.class);
+    public VentaBean() {
+        super(Venta.class);
     }
 
     @Override
-    public void create(Proveedor entity) {
+    public void create(Venta entity) {
         super.create(entity);
     }
 
-    public void edit( Integer id, Proveedor entity) {
+    public void edit(Integer id, Venta entity) {
         super.edit(entity);
     }
 
-    public void remove( Integer id) {
+    public void remove(Integer id) {
         super.remove(super.find(id));
     }
 
-    public Proveedor find(Integer id) {
+    public Venta find(Integer id) {
         return super.find(id);
     }
 
     @Override
-    public List<Proveedor> findAll() {
+    public List<Venta> findAll() {
         return super.findAll();
     }
 
-
-    public List<Proveedor> findRange(Integer from,Integer to) {
+    public List<Venta> findRange( Integer from, Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
-    public String countREST() {
+    public String countBEAN() {
         return String.valueOf(super.count());
     }
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
-    }   
+    }
 }
