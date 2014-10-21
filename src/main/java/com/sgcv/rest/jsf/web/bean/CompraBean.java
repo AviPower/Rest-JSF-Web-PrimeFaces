@@ -6,7 +6,7 @@
 
 package com.sgcv.rest.jsf.web.bean;
 
-import com.sgcv.rest.jsf.web.model.Cliente;
+import com.sgcv.rest.jsf.web.model.Compra;
 import com.sgcv.rest.jsf.web.service.AbstractFacade;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -18,38 +18,39 @@ import javax.persistence.PersistenceContext;
  * @author alvarenga
  */
 @Stateless
-public class ClienteBean extends AbstractFacade<Cliente>{
-
+public class CompraBean extends AbstractFacade<Compra> {
     @PersistenceContext(unitName = "Rest-JSF-Web-PrimeFaces_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
-    public ClienteBean() {
-        super(Cliente.class);
+    public CompraBean() {
+        super(Compra.class);
     }
 
     @Override
-    public void create(Cliente entity) {
+    public void create(Compra entity) {
         super.create(entity);
     }
 
-    public void edit( Integer id, Cliente entity) {
+    public void edit( Integer id, Compra entity) {
         super.edit(entity);
     }
 
-    public void remove(Integer id) {
+ 
+    public void remove( Integer id) {
         super.remove(super.find(id));
     }
 
-    public Cliente find( Integer id) {
+
+    public Compra find( Integer id) {
         return super.find(id);
     }
 
     @Override
-    public List<Cliente> findAll() {
+    public List<Compra> findAll() {
         return super.findAll();
     }
 
-    public List<Cliente> findRange(Integer from, Integer to) {
+    public List<Compra> findRange( Integer from, Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
@@ -61,5 +62,4 @@ public class ClienteBean extends AbstractFacade<Cliente>{
     protected EntityManager getEntityManager() {
         return em;
     }
-    
 }

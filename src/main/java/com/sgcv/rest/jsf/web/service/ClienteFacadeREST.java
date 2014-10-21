@@ -6,8 +6,10 @@
 
 package com.sgcv.rest.jsf.web.service;
 
+import com.sgcv.rest.jsf.web.bean.ClienteBean;
 import com.sgcv.rest.jsf.web.model.Cliente;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,72 +21,62 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author alvarenga
  */
-@Stateless
 @Path("cliente")
-public class ClienteFacadeREST extends AbstractFacade<Cliente> {
-    @PersistenceContext(unitName = "Rest-JSF-Web-PrimeFaces_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
-
-    public ClienteFacadeREST() {
-        super(Cliente.class);
-    }
+public class ClienteFacadeREST {
+    @EJB
+    private ClienteBean clientebean;
 
     @POST
-    @Override
-    @Consumes({"application/xml", "application/json"})
+    @Consumes(MediaType.APPLICATION_JSON)
     public void create(Cliente entity) {
-        super.create(entity);
+        clientebean.create(entity);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
+    @Consumes(MediaType.APPLICATION_JSON)
     public void edit(@PathParam("id") Integer id, Cliente entity) {
-        super.edit(entity);
+        clientebean.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
+        clientebean.remove(id);
     }
 
     @GET
     @Path("{id}")
-    @Produces({"application/xml", "application/json"})
+    @Produces(MediaType.APPLICATION_JSON)
     public Cliente find(@PathParam("id") Integer id) {
-        return super.find(id);
+        return clientebean.find(id);
     }
 
     @GET
-    @Override
-    @Produces({"application/xml", "application/json"})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Cliente> findAll() {
-        return super.findAll();
+        return clientebean.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces({"application/xml", "application/json"})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Cliente> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+        return clientebean.findRange(new int[]{from, to});
     }
 
     @GET
     @Path("count")
     @Produces("text/plain")
     public String countREST() {
-        return String.valueOf(super.count());
+        return String.valueOf(clientebean.countBEAN());
     }
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
     
 }

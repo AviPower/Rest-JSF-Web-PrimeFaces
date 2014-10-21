@@ -6,7 +6,7 @@
 
 package com.sgcv.rest.jsf.web.bean;
 
-import com.sgcv.rest.jsf.web.model.Cliente;
+import com.sgcv.rest.jsf.web.model.Deuda;
 import com.sgcv.rest.jsf.web.service.AbstractFacade;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -18,21 +18,20 @@ import javax.persistence.PersistenceContext;
  * @author alvarenga
  */
 @Stateless
-public class ClienteBean extends AbstractFacade<Cliente>{
-
+public class DeudaBean extends AbstractFacade<Deuda>{
     @PersistenceContext(unitName = "Rest-JSF-Web-PrimeFaces_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
-    public ClienteBean() {
-        super(Cliente.class);
+    public DeudaBean() {
+        super(Deuda.class);
     }
 
     @Override
-    public void create(Cliente entity) {
+    public void create(Deuda entity) {
         super.create(entity);
     }
 
-    public void edit( Integer id, Cliente entity) {
+    public void edit( Integer id, Deuda entity) {
         super.edit(entity);
     }
 
@@ -40,18 +39,19 @@ public class ClienteBean extends AbstractFacade<Cliente>{
         super.remove(super.find(id));
     }
 
-    public Cliente find( Integer id) {
+    public Deuda find(Integer id) {
         return super.find(id);
     }
 
     @Override
-    public List<Cliente> findAll() {
+    public List<Deuda> findAll() {
         return super.findAll();
     }
 
-    public List<Cliente> findRange(Integer from, Integer to) {
+    public List<Deuda> findRange(Integer from, Integer to) {
         return super.findRange(new int[]{from, to});
     }
+
 
     public String countBEAN() {
         return String.valueOf(super.count());
@@ -60,6 +60,5 @@ public class ClienteBean extends AbstractFacade<Cliente>{
     @Override
     protected EntityManager getEntityManager() {
         return em;
-    }
-    
+    }  
 }
