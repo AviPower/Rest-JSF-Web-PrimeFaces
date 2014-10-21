@@ -25,7 +25,7 @@ import javax.ws.rs.Produces;
  * @author alvarenga
  */
 @Stateless
-@Path("com.sgcv.rest.jsf.web.model.cliente")
+@Path("cliente")
 public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     @PersistenceContext(unitName = "Rest-JSF-Web-PrimeFaces_war_1.0-SNAPSHOTPU")
     private EntityManager em;
