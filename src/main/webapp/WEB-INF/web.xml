@@ -14,7 +14,11 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-        <mime-mapping>
+    <context-param>
+        <param-name>metadata.serviceBaseURI</param-name>
+        <param-value>http://localhost:8080/Rest-JSF-Web-PrimeFaces/webresources/</param-value>
+    </context-param>
+    <mime-mapping>
     	<extension>ttf</extension>
     	<mime-type>application/x-font-truetype</mime-type>
     </mime-mapping>
