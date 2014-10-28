@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
  * @author alvarenga
  */
 @Stateless
-public class ClienteBean extends AbstractFacade<Cliente>{
+public class ClienteBean extends AbstractFacade<Cliente>{    // avi nde ka.ucha 
 
     @PersistenceContext(unitName = "Rest-JSF-Web-PrimeFaces_war_1.0-SNAPSHOTPU")
     private EntityManager em;
