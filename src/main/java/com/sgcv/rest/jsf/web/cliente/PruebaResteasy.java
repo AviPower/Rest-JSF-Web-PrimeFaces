@@ -14,7 +14,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 /**
- *
+ * 
  * @author alvarenga
  */
 public class PruebaResteasy {
