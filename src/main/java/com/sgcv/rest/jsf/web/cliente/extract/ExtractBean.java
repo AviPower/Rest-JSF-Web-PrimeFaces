@@ -42,6 +42,16 @@ import org.primefaces.event.FileUploadEvent;
  * with any query string (URL parameters). The next method asks the remote
  * service by URL which looks as http://localhost:8080/Rest-JSF-Web-PrimeFaces/webresources/extract?file=<some file path>
  */
+
+/**
+ * La próxima bean demuestra cómo comunicarse con el servicio remoto a través de POST.
+ * Tenemos la intención de enviar el contenido del archivo cargado.
+ * Utilizando el componente FileUpload de PrimeFaces ', por lo que el contenido se puede
+ * extraer como InputStream del parámetro del listener FileUploadEvent. Esto no es importante en este caso,
+ * también se puede utilizar cualquier otro tipo de marcos de Internet para obtener el contenido
+ * del archivo (también como matriz de bytes).
+ * Más importante es ver cómo hacer frente a las clases de cliente RESTful FormDataMultiPart y FormDataBodyPart.
+ **/
 @ManagedBean
 @ViewScoped
 public class ExtractBean implements Serializable {
@@ -51,7 +61,9 @@ public class ExtractBean implements Serializable {
  
     private String path;
  
+    //Manejo de Carga de archivos
     public void handleFileUpload(FileUploadEvent event) throws IOException {
+         //devuelve el nombre de archivo con la ruta completa en JSF2.0 con PrimeFaces 5.0
         String fileName = event.getFile().getFileName();
  
         FormDataMultiPart fdmp = new FormDataMultiPart();
@@ -59,14 +71,13 @@ public class ExtractBean implements Serializable {
                 event.getFile().getInputstream(), MediaType.APPLICATION_OCTET_STREAM_TYPE);
         fdmp.bodyPart(fdbp);
  
-        WebResource resource = restClient.getWebResource("extract");
+        WebResource resource = restClient.getWebResource("cliente");
         ClientResponse response = resource.accept("application/json").type(MediaType.MULTIPART_FORM_DATA).post(
                 ClientResponse.class, fdmp);
  
         if (response.getStatus() != 200) {
             throw new RuntimeException("Failed service call: HTTP error code : " + response.getStatus());
         }
- 
         // get extracted document as JSON
         String jsonExtract = response.getEntity(String.class);
  
@@ -76,6 +87,7 @@ public class ExtractBean implements Serializable {
         
     }
     
+     //cómo enviar una petición GET con cualquier cadena de consulta (parámetros de URL)
     public void extractFile() {
         WebResource resource = restClient.getWebResource("extract");
         ClientResponse response = resource.queryParam("file", path).accept("application/json").get(
@@ -93,6 +105,15 @@ public class ExtractBean implements Serializable {
 
         //...
    }
+
     // getter / setter
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+    
  
 }

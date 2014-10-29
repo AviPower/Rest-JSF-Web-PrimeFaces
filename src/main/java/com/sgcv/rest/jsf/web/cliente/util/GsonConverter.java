@@ -1,11 +1,5 @@
 package com.sgcv.rest.jsf.web.cliente.util;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author alvarenga
@@ -21,6 +15,13 @@ import java.util.Date;
  * @version $Revision$
  * @since   0.2
  */
+/**
+ * Gson (también conocido como Google Gson) es una biblioteca de código abierto para el
+ * lenguaje de programación Java que permite la serialización y deserialización entre 
+ * objetos Java y su representación en notación JSON.
+ * Permite la conversión entre objetos Java y JSON de una manera sencilla,
+ * simplemente invocando los métodos toJson() o fromJson().
+ **/
 public final class GsonConverter {
 
 	private static final GsonConverter INSTANCE = new GsonConverter();
