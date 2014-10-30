@@ -68,7 +68,15 @@ public class HistoryBean implements Serializable {
     }
  
     // getter / setter
+    
+    public RestClient getRestClient() {
+        return restClient;
+    }
 
+    public void setRestClient(RestClient restClient) {
+        this.restClient = restClient;
+    }
+    
     public String getJsonHistory() {
         return jsonHistory;
     }

@@ -17,22 +17,22 @@
 	    	
 	    	<p:messages autoUpdate="true" closable="true" />
 	    	
-	    	<p:dataTable id="productoTable"  var="producto"
+	    	<p:dataTable id="productoTable"  value="#{historyBean.documents}" var="cliente"
 	    		 style="margin-top: 20px" 
 	    		emptyMessage="Ningun producto encontrado. Presione el botón Nuevo para agregar un nuevo ítem" rows="10"
 	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
 	    		
 	    		<p:column headerText="Cedula">
-	    			<h:outputText value="" />
+	    			<h:outputText value="#{cliente.ci}" />
 	    		</p:column>
 	    		<p:column  headerText="Nombre"
 	    			filterMatchMode="contains" filterStyle="width:200px">
-	    			
+	    			<h:outputText value="#{cliente.nombre}" />
 	    		</p:column>
 	    		
 	    		<p:column  headerText="Apellido"
 	    			filterMatchMode="contains" filterStyle="width:120px">
-	    			
+	    			<h:outputText value="#{cliente.apellido}" />
 	    		</p:column>
 
 	    		
