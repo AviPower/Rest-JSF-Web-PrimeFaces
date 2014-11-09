@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
-package com.sgcv.rest.jsf.web.cliente.history;
+package com.sgcv.rest.jsf.web.cliente.bbean;
 
 import com.sgcv.rest.jsf.web.cliente.util.GsonConverter;
 import com.sgcv.rest.jsf.web.cliente.common.RestClient;
-import com.sgcv.rest.jsf.web.model.Cliente;
+import com.sgcv.rest.jsf.web.model.Proveedor;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -25,13 +25,13 @@ import javax.faces.bean.ViewScoped;
  * Bean getting history of the last extracted documents. 
   * Tenemos la intención de recibir los recursos en formato JSON y convertirlos en objetos Java. 
   * El próximo bean muestra cómo hacer esta tarea para peticiones GET. 
-  * Los conversos bean HistoryBean reciben JSON en un objeto Ciemte mediante el uso de GsonConverter. 
+  * Los conversos bean ClienteBBean reciben JSON en un objeto Ciemte mediante el uso de GsonConverter. 
   * Cliente es un simple POJO y GsonConverter es una instancia singleton que envuelve Gson.
  */
 //Conseguir la historia de los ultimos elementos extraidos
 @ManagedBean
 @ViewScoped
-public class HistoryBean implements Serializable {
+public class ProveedorBBean implements Serializable {
     
     /*anotation forma de inyectar en el controlador,
     ManagedProperty utilizar ese bean almacenado
@@ -41,15 +41,15 @@ public class HistoryBean implements Serializable {
     private RestClient restClient;
     
     //Objeto pojo Cliente
-    private List<Cliente> documents;
+    private List<Proveedor> documents;
     private String jsonHistory;
  
-    public List<Cliente> getDocuments() {
+    public List<Proveedor> getDocuments() {
         if (documents != null) {
             return documents;
         }
-        //Envia el path de peticion get de cliente, listado de clientes
-        ClientResponse response = restClient.clientGetResponse("cliente");
+        //Envia el path de peticion get de proveedor, listado de proveedores
+        ClientResponse response = restClient.clientGetResponse("proveedor");
  
         //verifica que no haya error con la pagina.. si es 200 caso de exito, sino fallo
         if (response.getStatus() != 200) {
@@ -61,7 +61,7 @@ public class HistoryBean implements Serializable {
  
         // convert to Java array / list of Cliente instances, Convierte el json a una Lista de Clientes
         //fromJson pasa de la notacion json a java, Si fuera en caso contrario se usaria toJson
-        Cliente[] docs = GsonConverter.getGson().fromJson(jsonHistory, Cliente[].class);
+        Proveedor[] docs = GsonConverter.getGson().fromJson(jsonHistory, Proveedor[].class);
         documents = Arrays.asList(docs);
  
         return documents;
@@ -81,7 +81,7 @@ public class HistoryBean implements Serializable {
         return jsonHistory;
     }
 
-    public void setDocuments(List<Cliente> documents) {
+    public void setDocuments(List<Proveedor> documents) {
         this.documents = documents;
     }
 

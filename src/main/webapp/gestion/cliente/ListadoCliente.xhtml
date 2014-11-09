@@ -17,33 +17,32 @@
 	    	
 	    	<p:messages autoUpdate="true" closable="true" />
 	    	
-	    	<p:dataTable id="productoTable"  value="#{historyBean.documents}" var="cliente"
+	    	<p:dataTable id="clienteTable"  value="#{clienteBBean.documents}" var="cliente"
 	    		 style="margin-top: 20px" 
-	    		emptyMessage="Ningun producto encontrado. Presione el botón Nuevo para agregar un nuevo ítem" rows="10"
-	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+	    		emptyMessage="Ningun producto encontrado. Presione el botón Nuevo para agregar un nuevo ítem"
+                        paginatorTemplate="{PreviousPageLink} {NextPageLink} "
+                        rows="10" paginator="true" paginatorPosition="bottom" >
 	    		
-	    		<p:column headerText="Cedula">
+	    		<p:column headerText="Cedula" style="width:20%; text-align: center">
 	    			<h:outputText value="#{cliente.ci}" />
 	    		</p:column>
-	    		<p:column  headerText="Nombre"
-	    			filterMatchMode="contains" filterStyle="width:200px">
+	    		<p:column  headerText="Nombre" style="width:40%; text-align: center">
 	    			<h:outputText value="#{cliente.nombre}" />
 	    		</p:column>
 	    		
-	    		<p:column  headerText="Apellido"
-	    			filterMatchMode="contains" filterStyle="width:120px">
+	    		<p:column  headerText="Apellido" style="width:40%; text-align: center">
 	    			<h:outputText value="#{cliente.apellido}" />
 	    		</p:column>
 
 	    		
-	    		<p:column style="width: 100px; text-align: center">
+	    		<p:column style="width: 15%; text-align: center">
 	    		
 	    			<f:facet name="header">
 	    				<p:button value="Nuevo" />
 	    			</f:facet>
 	    			
 	    			<p:button  icon="ui-icon-pencil" title="Editar">
-	    				<f:param name="producto" />
+	    				<f:param name="cliente" />
 	    			</p:button>
 	    			<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmacionExclusion.show()"
 	    					process="@this" update=":frmBusqueda:confirmacionExclusion">
@@ -53,12 +52,12 @@
 	    	</p:dataTable>
 	    	
 	    	<p:confirmDialog header="Exclusión de Producto" 
-	    		message="Esta seguro que desea excluir el producto ?"
+	    		message="Esta seguro que desea excluir el cliente ?"
 	    		widgetVar="confirmacionExclusion"	id="confirmacionExclusion">
 	    		<p:button value="No" onclick="confirmacionExclusion.hide(); return false;" />
 	    		<p:commandButton value="Si" oncomplete="confirmacionExclusion.hide();"
 	    			 process="@this"
-	    			update=":frmBusqueda:productoTable" />
+	    			update=":frmBusqueda:clienteTable" />
 	    	</p:confirmDialog>
     	</h:form>
     </ui:define>
