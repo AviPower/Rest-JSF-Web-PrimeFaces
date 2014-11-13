@@ -6,16 +6,24 @@
 
 package com.sgcv.rest.jsf.web.cliente.bbean;
 
-import com.sgcv.rest.jsf.web.cliente.util.GsonConverter;
 import com.sgcv.rest.jsf.web.cliente.common.RestClient;
+import com.sgcv.rest.jsf.web.cliente.util.GsonConverter;
+import com.sgcv.rest.jsf.web.cliente.util.JsfUtils;
 import com.sgcv.rest.jsf.web.model.Producto;
-import com.sun.jersey.api.client.ClientResponse;
+import com.sgcv.rest.jsf.web.model.Proveedor;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.apache.http.client.ClientProtocolException;
+import org.jboss.resteasy.client.ClientRequest;
+import org.jboss.resteasy.client.ClientResponse;
 
 /**
  *
@@ -43,19 +51,44 @@ public class ProductoBBean implements Serializable {
     //Objeto pojo
     private List<Producto> documents;
     private String jsonHistory;
+    //Create producto
+    private List<Proveedor> proveedores;
+    private Producto producto;
+    
+    public ProductoBBean(){
+        limpiar();
+    }
+    @PostConstruct
+    public void inicializar() {
+        limpiar();
+    }
+    
+    private void limpiar() {
+	producto = new Producto();
+    }
  
-    public List<Producto> getDocuments() {
+    public List<Producto> getDocuments() throws Exception {
         if (documents != null) {
             return documents;
         }
-        //Envia el path de peticion get de producto, listado de producto
+        /*//Envia el path de peticion get de producto, listado de producto
         ClientResponse response = restClient.clientGetResponse("producto");
  
         //verifica que no haya error con la pagina.. si es 200 caso de exito, sino fallo
         if (response.getStatus() != 200) {
             throw new RuntimeException("Failed service call: HTTP error code : " + response.getStatus());
+        }*/
+        try {
+        ClientRequest request = new ClientRequest(
+					"http://localhost:8080/Rest-JSF-Web-PrimeFaces/webresources/producto");
+        request.accept("application/json");
+        ClientResponse<String> response = request.get(String.class);
+
+        if (response.getStatus() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : "
+                                + response.getStatus());
         }
- 
+        
         // get producto as JSON, el json se guarda como string
         jsonHistory = response.getEntity(String.class);
  
@@ -65,6 +98,27 @@ public class ProductoBBean implements Serializable {
         documents = Arrays.asList(docs);
  
         return documents;
+        } catch (ClientProtocolException e) {
+
+			e.printStackTrace();
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+        return null;
+    }
+    
+    public void guardar(Producto producto){
+        String input = GsonConverter.getGson().toJson(producto);
+        restClient.clientPostResponse("producto", input);
+        limpiar();
+        JsfUtils.addInfoMessage("Producto guardado correctamente!");
     }
  
     // getter / setter
@@ -88,6 +142,21 @@ public class ProductoBBean implements Serializable {
     public void setJsonHistory(String jsonHistory) {
         this.jsonHistory = jsonHistory;
     }
- 
+
+    public List<Proveedor> getProveedores() {
+        return proveedores;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProveedores(List<Proveedor> proveedores) {
+        this.proveedores = proveedores;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
  
 }

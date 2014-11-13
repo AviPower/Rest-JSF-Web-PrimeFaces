@@ -17,20 +17,20 @@
 	    	
 	    	<p:messages autoUpdate="true" closable="true" />
 	    	
-	    	<p:dataTable id="clienteTable"  value="#{clienteBBean.documents}" var="cliente"
+	    	<p:dataTable id="clienteTable"  value="#{clienteBBean.documents}" lazy="true" var="cliente"
 	    		 style="margin-top: 20px" 
 	    		emptyMessage="Ningun producto encontrado. Presione el botón Nuevo para agregar un nuevo ítem"
                         paginatorTemplate="{PreviousPageLink} {NextPageLink} "
                         rows="10" paginator="true" paginatorPosition="bottom" >
 	    		
-	    		<p:column headerText="Cedula" style="width:20%; text-align: center">
+	    		<p:column headerText="Cedula" sortBy="ci" style="width:20%; text-align: center">
 	    			<h:outputText value="#{cliente.ci}" />
 	    		</p:column>
-	    		<p:column  headerText="Nombre" style="width:40%; text-align: center">
+	    		<p:column  headerText="Nombre" sortBy="nombre" style="width:40%; text-align: center">
 	    			<h:outputText value="#{cliente.nombre}" />
 	    		</p:column>
 	    		
-	    		<p:column  headerText="Apellido" style="width:40%; text-align: center">
+	    		<p:column  headerText="Apellido" sortBy="apellido" style="width:40%; text-align: center">
 	    			<h:outputText value="#{cliente.apellido}" />
 	    		</p:column>
 
@@ -38,7 +38,7 @@
 	    		<p:column style="width: 15%; text-align: center">
 	    		
 	    			<f:facet name="header">
-	    				<p:button value="Nuevo" />
+	    				<p:button value="Nuevo" outcome="/gestion/cliente/RegistroCliente.xhtml"/>
 	    			</f:facet>
 	    			
 	    			<p:button  icon="ui-icon-pencil" title="Editar">

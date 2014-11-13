@@ -7,26 +7,46 @@
 package com.sgcv.rest.jsf.web.bean;
 
 import com.sgcv.rest.jsf.web.model.Factura;
+import com.sgcv.rest.jsf.web.model.Venta;
 import com.sgcv.rest.jsf.web.service.AbstractFacade;
+import java.util.Date;
 import java.util.List;
+import javax.ejb.Asynchronous;
+import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import static javax.ejb.TransactionAttributeType.REQUIRED;
+import static javax.ejb.TransactionAttributeType.REQUIRES_NEW;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transaction;
 
 /**
  *
  * @author alvarenga
  */
 @Stateless
+@TransactionManagement(TransactionManagementType.CONTAINER)
 public class FacturaBean extends AbstractFacade<Factura>{
     @PersistenceContext(unitName = "Rest-JSF-Web-PrimeFaces_war_1.0-SNAPSHOTPU")
     private EntityManager em;
+    
+    @EJB
+    VentaBean ventabean;
+    
+    private String estado = "Sin Proceso de Facturacion";
+    private Transaction t= null;
 
     public FacturaBean() {
         super(Factura.class);
     }
 
     @Override
+    @TransactionAttribute(REQUIRED)
     public void create(Factura entity) {
         super.create(entity);
     }
@@ -59,5 +79,53 @@ public class FacturaBean extends AbstractFacade<Factura>{
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    /** Llamada a Listar del EJB **/
+    public List<Factura> listar(String inicio, String cantidad, String orderBy, String orderDir) {
+        return super.listar(inicio, cantidad, orderBy, orderDir, "Factura");
+    }
+    
+    /*
+    Llamada al proceso Asyncrono de IniciarFacturacion
+    */
+    @Asynchronous
+    @TransactionAttribute(REQUIRES_NEW)
+    public void iniciarFacturacion() throws Exception {
+        
+        estado = "Corriendo";
+        
+        Query query = em.createQuery("SELECT v from Venta v WHERE v.factura IS NULL");
+        List<Venta> listaDeVentasSinFacturas = (List<Venta>) query.getResultList();
+        
+        for(Venta v : listaDeVentasSinFacturas){
+            Factura nuevaFactura = new Factura();
+            nuevaFactura.setFecha(new Date());
+            nuevaFactura.setMonto(v.getTotal());
+            nuevaFactura.setVenta(v);
+            create(nuevaFactura);
+            v.setFactura(nuevaFactura);
+            ventabean.edit(v);
+            /*
+            generarPDFporJAsperReports(v.getId());
+            */
+        }
+        
+        estado = "Terminado";
+        
+        
+    }
+    
+    public String verEstadoFacturacion(){
+        return this.estado;
+    }
+    
+    public boolean cancelarFacturacion()throws Exception{
+        if (this.estado != "Terminado"){
+            em.getTransaction().rollback();
+            return true;
+        }else{
+            return false;
+        }
     }
 }

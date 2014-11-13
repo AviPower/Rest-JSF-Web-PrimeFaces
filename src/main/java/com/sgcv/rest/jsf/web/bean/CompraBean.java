@@ -22,6 +22,7 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -77,7 +78,7 @@ public class CompraBean extends AbstractFacade<Compra> {
         return em;
     }
     
-    
+   
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
      public void cargaMasiva(List<Compra> Compras) throws IOException {
         FileWriter fichero = null;
@@ -109,4 +110,8 @@ public class CompraBean extends AbstractFacade<Compra> {
     
      }
     
+    /** Llamada a Listar del EJB **/
+    public List<Compra> listar(String inicio, String cantidad, String orderBy, String orderDir) {
+        return super.listar(inicio, cantidad, orderBy, orderDir, "Compra");
+    }
 }

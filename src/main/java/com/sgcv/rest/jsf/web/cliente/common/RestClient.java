@@ -77,9 +77,15 @@ public class RestClient implements Serializable {
         http://localhost:8080/Rest-JSF-Web-PrimeFaces/webresources/Producto*/
         return client.resource(SERVICE_BASE_URI + relativeUrl);
     }
-    /*Se especifica el tipo MIME para la respuesta en este caso json*/
+    /*Se especifica el tipo MIME para la respuesta en este caso json GET*/
     public ClientResponse clientGetResponse(String relativeUrl) {
         WebResource webResource = client.resource(SERVICE_BASE_URI + relativeUrl);
         return webResource.accept("application/json").get(ClientResponse.class);
+    }
+    //POST
+    public void clientPostResponse(String relativeUrl, String post){
+        WebResource webResource = client.resource(SERVICE_BASE_URI + relativeUrl);
+        webResource.accept("application/json").type("application/json").post(
+                ClientResponse.class, post);
     }
 }

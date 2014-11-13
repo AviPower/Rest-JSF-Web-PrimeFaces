@@ -60,4 +60,9 @@ public class CompradetalleBean  extends AbstractFacade<Compradetalle>{
     protected EntityManager getEntityManager() {
         return em;
     }   
+    
+    /** Llamada a Listar del EJB **/
+    public List<Compradetalle> listar(String inicio, String cantidad, String orderBy, String orderDir) {
+        return super.listar(inicio, cantidad, orderBy, orderDir, "Compradetalle");
+    }
 }

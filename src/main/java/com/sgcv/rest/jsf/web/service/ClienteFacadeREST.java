@@ -68,9 +68,10 @@ public class ClienteFacadeREST {
         return clientebean.find(id);
     }
 
+    /** Servicio de Listar Clientes **/
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Cliente> listar(@QueryParam("inicio") @DefaultValue("1") String inicio, 
+    public List<Cliente> listar(@QueryParam("inicio") @DefaultValue("0") String inicio, 
             @QueryParam("cantidad") @DefaultValue("10") String cantidad, 
             @QueryParam("orderBy") @DefaultValue("id") String orderBy,
             @QueryParam("orderDir") @DefaultValue("ASC") String orderDir) {
@@ -90,7 +91,6 @@ public class ClienteFacadeREST {
     public String countREST() {
         return String.valueOf(clientebean.countBEAN());
     }
-    
     @POST
     @Path("cargaMasiva")
     @Consumes(MediaType.APPLICATION_JSON)

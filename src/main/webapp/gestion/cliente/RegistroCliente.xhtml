@@ -6,8 +6,11 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:o="http://omnifaces.org/ui">
 	
-	<ui:define name="titulo">#{registroProducto.editando ? 'Editar Cliente' : 'Cliente'}</ui:define>
-	
+	<ui:define name="titulo">Cliente</ui:define>
+	<f:metadata>
+    		
+    		<f:viewParam name="cliente" value="#{registroClienteBBean.cliente}" converter="#{clienteConverter}"/>
+    	</f:metadata>
 	<ui:define name="cuerpo">
 
 		<h:form>
@@ -17,30 +20,30 @@
 
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
-					<p:commandButton value="Guardar" id="botonGuardar" 
+					<p:commandButton value="Guardar" id="botonGuardar" actionListener="#{registroClienteBBean.guardar()}"
 					 update="@form"/>
                                         <p:commandButton  value="Carga por Archivo" id="botonArchivo" 
 					 update="@form"/>
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
-					<p:button value="Volver" />
+					<p:button value="Volver" outcome="/gestion/cliente/ListadoCliente.xhtml"/>
 				</p:toolbarGroup>
 			</p:toolbar>
 
 			<p:panelGrid columns="2" id="panel"
 				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
                                 <p:outputLabel value="Cedula" for="cedula" />
-				<p:inputText id="cedula"
+				<p:inputText id="cedula" value="#{registroClienteBBean.cliente.ci}"
 					 size="40"
 					maxlength="70" />
 	    		
 				<p:outputLabel value="Nombre" for="nombre" />
-				<p:inputText id="nombre"
+				<p:inputText id="nombre" value="#{registroClienteBBean.cliente.nombre}"
 					 size="60"
 					maxlength="70" />
 	    		
                                 <p:outputLabel value="Apellido" for="apellido" />
-				<p:inputText id="apellido"
+				<p:inputText id="apellido" value="#{registroClienteBBean.cliente.apellido}"
 					 size="60"
 					maxlength="70" />
 

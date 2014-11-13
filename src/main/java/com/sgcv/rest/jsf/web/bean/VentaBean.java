@@ -18,10 +18,12 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import static javax.ejb.TransactionAttributeType.REQUIRED;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -45,6 +47,7 @@ public class VentaBean extends AbstractFacade<Venta> {
         super.create(entity);
     }
 
+    @TransactionAttribute(REQUIRED)
     public void edit(Integer id, Venta entity) {
         super.edit(entity);
     }
@@ -75,6 +78,7 @@ public class VentaBean extends AbstractFacade<Venta> {
         return em;
     }
     
+
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
      public void cargaMasiva(List<Venta> Ventas) throws IOException {
         FileWriter fichero = null;
@@ -106,4 +110,9 @@ public class VentaBean extends AbstractFacade<Venta> {
     
      }
     
+    /** Llamada a Listar del EJB **/
+    public List<Venta> listar(String inicio, String cantidad, String orderBy, String orderDir) {
+        return super.listar(inicio, cantidad, orderBy, orderDir, "Venta");
+    }
+
 }
