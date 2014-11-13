@@ -8,8 +8,18 @@ package com.sgcv.rest.jsf.web.service;
 
 import com.sgcv.rest.jsf.web.bean.ClienteBean;
 import com.sgcv.rest.jsf.web.model.Cliente;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.TransactionAttribute;
+import static javax.ejb.TransactionAttributeType.NOT_SUPPORTED;
+import javax.naming.NamingException;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -36,6 +46,7 @@ public class ClienteFacadeREST {
     public void create(Cliente entity) {
         clientebean.create(entity);
     }
+    
 
     @PUT
     @Path("{id}")
@@ -78,6 +89,15 @@ public class ClienteFacadeREST {
     @Produces("text/plain")
     public String countREST() {
         return String.valueOf(clientebean.countBEAN());
+    }
+    
+    @POST
+    @Path("cargaMasiva")
+    @Consumes(MediaType.APPLICATION_JSON)
+    //@TransactionAttribute(NOT_SUPPORTED)
+    public void cargaMasiva(List<Cliente> entitys) throws IOException{
+
+        clientebean.cargaMasiva(entitys);
     }
 
     

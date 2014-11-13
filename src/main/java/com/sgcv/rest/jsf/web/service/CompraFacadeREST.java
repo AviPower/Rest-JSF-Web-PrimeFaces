@@ -7,7 +7,12 @@
 package com.sgcv.rest.jsf.web.service;
 
 import com.sgcv.rest.jsf.web.bean.CompraBean;
+import com.sgcv.rest.jsf.web.bean.ProveedorBean;
+import com.sgcv.rest.jsf.web.model.Cliente;
 import com.sgcv.rest.jsf.web.model.Compra;
+import com.sgcv.rest.jsf.web.model.Proveedor;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -76,6 +81,18 @@ public class CompraFacadeREST {
     @Produces("text/plain")
     public String countREST() {
         return String.valueOf(comprabean.countBEAN());
+    }
+    
+    @EJB
+    ProveedorBean proveedorBean;
+    
+    @POST
+    @Path("cargaMasiva")
+    @Consumes(MediaType.APPLICATION_JSON)
+    //@TransactionAttribute(NOT_SUPPORTED)
+    public void cargaMasiva(List<Compra> entitys) throws IOException{
+        List<Compra> listaP = new ArrayList<Compra>();
+        comprabean.cargaMasiva(entitys);
     }
     
 }

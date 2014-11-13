@@ -69,5 +69,4 @@ public abstract class AbstractFacade<T> {
         query.setMaxResults(Integer.parseInt(cantidad));
         return (List<T>) query.getResultList();
     }
-    
 }

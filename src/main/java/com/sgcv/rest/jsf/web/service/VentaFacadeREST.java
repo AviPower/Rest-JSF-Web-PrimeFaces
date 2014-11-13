@@ -7,7 +7,10 @@
 package com.sgcv.rest.jsf.web.service;
 
 import com.sgcv.rest.jsf.web.bean.VentaBean;
+import com.sgcv.rest.jsf.web.model.Compra;
 import com.sgcv.rest.jsf.web.model.Venta;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -74,5 +77,15 @@ public class VentaFacadeREST{
     public String countREST() {
         return String.valueOf(ventabean.countBEAN());
     }
+    
+    @POST
+    @Path("cargaMasiva")
+    @Consumes(MediaType.APPLICATION_JSON)
+    //@TransactionAttribute(NOT_SUPPORTED)
+    public void cargaMasiva(List<Venta> entitys) throws IOException{
+        List<Venta> listaP = new ArrayList<Venta>();
+        ventabean.cargaMasiva(entitys);
+    }
+    
     
 }
