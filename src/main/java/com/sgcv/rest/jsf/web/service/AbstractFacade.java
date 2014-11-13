@@ -8,6 +8,7 @@ package com.sgcv.rest.jsf.web.service;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -59,6 +60,14 @@ public abstract class AbstractFacade<T> {
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+    
+    /** Metodo Generico de Paginacion y Ordenacion **/
+    public List<T> listar(String inicio, String cantidad, String orderBy, String orderDir, String clase){
+        Query query = getEntityManager().createQuery("SELECT c FROM " + clase + " c ORDER BY c." + orderBy + " " + orderDir);
+        query.setFirstResult(Integer.parseInt(inicio));
+        query.setMaxResults(Integer.parseInt(cantidad));
+        return (List<T>) query.getResultList();
     }
     
 }
