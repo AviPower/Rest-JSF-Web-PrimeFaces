@@ -6,57 +6,55 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:o="http://omnifaces.org/ui">
 	
-	<ui:define name="titulo">#{registroProducto.editando ? 'Editar Producto' : 'Producto'}</ui:define>
+	<ui:define name="titulo">Producto</ui:define>
 	
 	<ui:define name="cuerpo">
+	<f:metadata>
+    		<f:viewParam name="producto" value="#{registroProductoBBean.producto}" converter="#{productoConverter}"/>
+    	</f:metadata>
 
 		<h:form>
 			<h1>Producto</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
-			<p:toolbar style="margin-top: 20px">
-				<p:toolbarGroup>
-					<p:commandButton value="Guardar" id="botonGuardar" 
-					 update="@form"/>
-                                        <p:commandButton  value="Carga por Archivo" id="botonArchivo" 
-					 update="@form"/>
-				</p:toolbarGroup>
-				<p:toolbarGroup align="right">
-					<p:button value="Volver" />
-				</p:toolbarGroup>
-			</p:toolbar>
-
+                        <p:panel  style="width: 800px;">
 			<p:panelGrid columns="2" id="panel"
 				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
 	    		
 				<p:outputLabel value="Nombre" for="nombre" />
-				<p:inputText id="nombre"
+				<p:inputText id="nombre" value="#{registroProductoBBean.producto.nombre}"
 					 size="60"
 					maxlength="70" />
 				
 				<p:outputLabel value="Proveedor" for="proveedor"/>
-	    		<p:selectOneMenu id="proveedor"  style="width:360px">
+	    		<p:selectOneMenu id="proveedor" value="#{registroProductoBBean.producto.proveedor}" style="width:300px"
+                                         required="true" converter="#{proveedorConverter}">
 	    			<f:selectItem itemLabel="Seleccione el Proveedor"/>
-	    			<f:selectItems  var="proveedor"
-	    				  />
+	    			<f:selectItems value="#{registroProductoBBean.proveedores}" var="proveedor"
+	    				  itemValue="#{proveedor}" itemLabel="#{proveedor.nombre} #{proveedor.apellido}"/>
 	    		</p:selectOneMenu>
 	    		
 				<p:outputLabel value="Descripcion" for="detalles" />
-				<p:inputTextarea id="detalles"
-					
+				<p:inputTextarea id="detalles" value="#{registroProductoBBean.producto.descripcion}"
 					maxlength="70" style="width:400px" />
                                 
                                 <p:outputLabel value="Precio Unitario" for="p" />
-				<p:inputText id="p"
+				<p:inputText id="p" value="#{registroProductoBBean.producto.precio}"
 					 size="30"
-					maxlength="40" />
-                                <p:outputLabel value="Stock" for="s" />
-				<p:inputText id="s"
-					 size="30"
-					maxlength="40" />
+					maxlength="30" />
+                                <p:outputLabel value="Cantidad" for="s" />
+				<p:inputText id="s" value="#{registroProductoBBean.producto.stock}"
+					 size="25"
+					maxlength="25" />
+                                <h:outputText value=""/>
+					<p:commandButton value="Guardar"  id="botonGuardar"
+					 actionListener="#{registroProductoBBean.guardar}" >
+					<p:button value="Volver" outcome="/gestion/producto/ListadoProducto.xhtml"/>
+                                        </p:commandButton>
 			</p:panelGrid>
+                        </p:panel>
 		</h:form>
 	
 	</ui:define>

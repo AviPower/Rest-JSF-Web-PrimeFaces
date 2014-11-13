@@ -38,7 +38,7 @@
 	    		<p:column style="width: 15%; text-align: center">
 	    		
 	    			<f:facet name="header">
-	    				<p:button value="Nuevo" />
+	    				<p:button value="Nuevo" outcome="/gestion/proveedor/RegistroProveedor.xhtml"/>
 	    			</f:facet>
 	    			
 	    			<p:button  icon="ui-icon-pencil" title="Editar">
@@ -51,7 +51,7 @@
 	    		</p:column>
 	    	</p:dataTable>
 	    	
-	    	<p:confirmDialog header="Exclusión de Producto" 
+	    	<p:confirmDialog header="Exclusión de Proveedor" 
 	    		message="Esta seguro que desea excluir el cliente ?"
 	    		widgetVar="confirmacionExclusion"	id="confirmacionExclusion">
 	    		<p:button value="No" onclick="confirmacionExclusion.hide(); return false;" />

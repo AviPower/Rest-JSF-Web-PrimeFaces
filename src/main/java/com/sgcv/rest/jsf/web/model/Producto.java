@@ -7,17 +7,23 @@
 package com.sgcv.rest.jsf.web.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -42,6 +48,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 public class Producto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="producto_id_seq")
+    @SequenceGenerator(name="producto_id_seq", sequenceName="producto_id_seq", allocationSize=1)
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
@@ -72,7 +80,7 @@ public class Producto implements Serializable {
     @ManyToOne
     private Proveedor proveedor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
-    private Collection<Compradetalle> compradetalleCollection;
+    private List<Compradetalle> compradetalleCollection=new ArrayList<Compradetalle>();
 
     public Producto() {
     }
@@ -159,11 +167,11 @@ public class Producto implements Serializable {
 
     @XmlTransient
     @JsonIgnore
-    public Collection<Compradetalle> getCompradetalleCollection() {
+    public List<Compradetalle> getCompradetalleCollection() {
         return compradetalleCollection;
     }
 
-    public void setCompradetalleCollection(Collection<Compradetalle> compradetalleCollection) {
+    public void setCompradetalleCollection(List<Compradetalle> compradetalleCollection) {
         this.compradetalleCollection = compradetalleCollection;
     }
 
