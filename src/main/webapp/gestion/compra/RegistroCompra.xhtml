@@ -7,7 +7,9 @@
 	xmlns:o="http://omnifaces.org/ui">
 	
 	<ui:define name="titulo">Registro Compra</ui:define>
-	
+	<f:metadata>
+		<f:viewParam name="compra" value="#{registroCompraBBean.compra}" converter="#{compraConverter}"/>
+	</f:metadata>
 	<ui:define name="cuerpo">
 
 		<h:form>
@@ -16,12 +18,16 @@
 			<p:messages autoUpdate="true" closable="true" />
 
 			<p:toolbar style="margin-top: 20px">
-				<p:toolbarGroup>
-					<p:commandButton  icon= "ui-icon-cart" value="Agregar" id="botonGuardar" 
-					 update="@form"/>
-                                        <p:commandButton  icon= "ui-icon-cart" value="Carga por Archivo" id="botonArchivo" 
-					 update="@form"/>
-				</p:toolbarGroup>
+
+                                <p:toolbarGroup align="center">
+                                <p:outputLabel value="Proveedor  " for="proveedor"/>
+                                    <p:selectOneMenu id="proveedor" value="#{registroCompraBBean.proveedor}" style="width:300px"
+                                         required="true" converter="#{proveedorConverter}">
+	    			<f:selectItem itemLabel="Seleccione el Proveedor"/>
+	    			<f:selectItems value="#{registroCompraBBean.proveedores}" var="proveedor"
+	    				  itemValue="#{proveedor}" itemLabel="#{proveedor.nombre} #{proveedor.apellido}"/>
+                                </p:selectOneMenu>
+                                </p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Volver" outcome="/gestion/compra/ListadoCompra.xhtml"/>
 				</p:toolbarGroup>
@@ -31,16 +37,23 @@
 				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
 				<p:outputLabel value="Producto" for="producto"/>
-	    		<p:selectOneMenu id="producto"  style="width:360px">
+	    		<p:selectOneMenu id="producto" value="#{registroCompraBBean.compradetalle.producto}" style="width:300px"
+                                         required="true" converter="#{productoConverter}">
 	    			<f:selectItem itemLabel="Seleccione el Producto"/>
-	    			<f:selectItems  var="producto"
+	    			<f:selectItems value="#{registroCompraBBean.productos}" var="producto"
+                                               itemValue="#{producto}" itemLabel="#{producto.nombre}"
 	    				  />
 	    		</p:selectOneMenu>
 	    		
-				<p:outputLabel value="Cantidad" for="detalles" />
-				<p:inputText id="detalles"
-					size="20"
+				<p:outputLabel value="Cantidad" for="cantidad" />
+				<p:inputText id="cantidad" value="#{registroCompraBBean.compradetalle.cantidad}"
+					size="40"
 					maxlength="70" />
+                                
+                                <p:commandButton value="Agregar" id="botonAgregar" actionListener="#{registroCompraBBean.agregarDetalle()}"
+					 update="@form"/>
+                                        <p:commandButton  icon= "ui-icon-cart" value="Carga por Archivo" id="botonArchivo" 
+					 update="@form"/>
                                 
 			</p:panelGrid>
                         
@@ -48,21 +61,20 @@
 					<br />
                                         <h2>Articulos agregados al carrito </h2>
 
-					<p:dataTable id="CompraTable"
-						value=""
-						var="detalle" emptyMessage="No agrego productos al carrito"
+					<p:dataTable id="CompraTable" value="#{registroCompraBBean.compraDetalles}"
+						var="detalles" emptyMessage="No agrego productos al carrito"
 						style="width: 100%;">
 
 						<p:column headerText="Codigo" style="width: 60px;">
-							<h:outputText value="1200"/>
+							<h:outputText value="#{detalles.id}"/>
 						</p:column>
                                             
 						<p:column headerText="Producto" style="width: 180px;">
-							<h:outputText value="Articulos del hogar" />
+							<h:outputText value="#{detalles.producto.nombre}" />
 						</p:column>
 
 						<p:column headerText="Cantidad" style="width: 60px; text-align: center;">
-							<h:outputText value="300" />
+							<h:outputText value="{detalles.cantidad}" />
 						</p:column>
 
 

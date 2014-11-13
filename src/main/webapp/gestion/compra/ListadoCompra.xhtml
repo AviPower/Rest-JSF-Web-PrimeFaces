@@ -19,31 +19,27 @@
                 
 	    	<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup align="center">
-                                <p:outputLabel value="Proveedor  " for="proveedor"/>
-                                    <p:selectOneMenu id="proveedor"  style="width:200px">
-                                            <f:selectItem itemLabel="Seleccione el Proveedor"/>
-                                            <f:selectItems  var="proveedor"
-                                                      />
-                                    </p:selectOneMenu>
-	    				<p:button value="Nueva Compra" outcome="/gestion/compra/RegistroCompra.xhtml"/>
+                                <p:button outcome="/gestion/compra/RegistroCompra.xhtml" value="Nueva Compra">
+				</p:button>
                                 </p:toolbarGroup>
 			</p:toolbar>
                 
-	    	<p:dataTable id="productoTable"  var="producto"
+	    	<p:dataTable id="compraTable"  value="#{compraBBean.documents}" var="compra"
 	    		 style="margin-top: 20px" 
-	    		emptyMessage="Ningun Registro encontrado. Presione el botón Nuevo para agregar un nuevo ítem" rows="10"
-	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+	    		emptyMessage="Ningun producto encontrado. Presione el botón Nuevo para agregar un nuevo ítem" 
+                        paginatorTemplate="{PreviousPageLink} {NextPageLink} "
+                        rows="10" paginator="true" paginatorPosition="bottom">
 	    		
-	    		<p:column headerText="Código" style="width:40px">
-	    			<h:outputText value="" />
+	    		<p:column headerText="Código" style="width:10%; text-align: center">
+	    			<h:outputText value="#{compra.id}" />
 	    		</p:column>
-	    		<p:column  headerText="Proveedor" style="width:140px"
-	    			filterMatchMode="contains" filterStyle="width:50px">
+	    		<p:column  headerText="Proveedor" style="width:30%; text-align: center">
+	    			<h:outputText value="#{compra.proveedor.nombre} #{compra.proveedor.apellido}" />
 	    			
 	    		</p:column>
 	    		
-	    		<p:column  headerText="Total" style="width:100px"
-	    			filterMatchMode="contains" filterStyle="width:20px">
+	    		<p:column  headerText="Total" style="width:20%; text-align: center">
+	    			<h:outputText value="#{compra.total}" />
 	    			
 	    		</p:column>
 	    		
@@ -69,7 +65,7 @@
 	    		<p:button value="No" onclick="confirmacionExclusion.hide(); return false;" />
 	    		<p:commandButton value="Si" oncomplete="confirmacionExclusion.hide();"
 	    			 process="@this"
-	    			update=":frmBusqueda:productoTable" />
+	    			update=":frmBusqueda:compraTable" />
 	    	</p:confirmDialog>
     	</h:form>
     </ui:define>
