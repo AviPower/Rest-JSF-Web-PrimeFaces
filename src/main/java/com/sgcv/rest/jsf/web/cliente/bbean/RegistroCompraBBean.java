@@ -64,8 +64,13 @@ public class RegistroCompraBBean implements Serializable {
                 throw new RuntimeException("Failed service call: HTTP error code : " + response.getStatus());
             }
             jsonHistory=response.getEntity(String.class);
+<<<<<<< HEAD
             Proveedor[] prov = GsonConverter.getGson().fromJson(jsonHistory, Proveedor[].class);
             proveedores = Arrays.asList(prov);
+=======
+            Proveedor[] pro = GsonConverter.getGson().fromJson(jsonHistory, Proveedor[].class);
+            proveedores = Arrays.asList(pro);
+>>>>>>> f2962048fee8ba2b7c36a1e44088c99aee84061b
         }
         if(productos == null){
             
@@ -84,7 +89,10 @@ public class RegistroCompraBBean implements Serializable {
         Compradetalle compradetalle = new Compradetalle();
         List<Compradetalle> compraDetalles = new ArrayList<Compradetalle>();
         List<Producto> productos = new ArrayList<Producto>();
+<<<<<<< HEAD
         List<Proveedor> proveedores = new ArrayList<Proveedor>();
+=======
+>>>>>>> f2962048fee8ba2b7c36a1e44088c99aee84061b
         
     }
  
@@ -107,8 +115,12 @@ public class RegistroCompraBBean implements Serializable {
     }
     
     public void agregarDetalle(){
+<<<<<<< HEAD
         compraDetalles.add(compradetalle);
         Compradetalle compradetalle = new Compradetalle();
+=======
+    
+>>>>>>> f2962048fee8ba2b7c36a1e44088c99aee84061b
     }
  
     // getter / setter
@@ -173,9 +185,14 @@ public class RegistroCompraBBean implements Serializable {
     public List<Proveedor> getProveedores() {
         return proveedores;
     }
+<<<<<<< HEAD
 
     public void setProveedores(List<Proveedor> proveedores) {
         this.proveedores = proveedores;
     }
     
+=======
+    
+ 
+>>>>>>> f2962048fee8ba2b7c36a1e44088c99aee84061b
 }

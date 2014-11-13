@@ -10,14 +10,20 @@ import com.sgcv.rest.jsf.web.model.Venta;
 import com.sgcv.rest.jsf.web.service.AbstractFacade;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import static javax.ejb.TransactionAttributeType.REQUIRED;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
  * @author alvarenga
  */
 @Stateless
+@TransactionManagement(TransactionManagementType.CONTAINER)
 public class VentaBean extends AbstractFacade<Venta> {
     @PersistenceContext(unitName = "Rest-JSF-Web-PrimeFaces_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -31,6 +37,7 @@ public class VentaBean extends AbstractFacade<Venta> {
         super.create(entity);
     }
 
+    @TransactionAttribute(REQUIRED)
     public void edit(Integer id, Venta entity) {
         super.edit(entity);
     }

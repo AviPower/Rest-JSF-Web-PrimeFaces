@@ -18,6 +18,7 @@
 			<p:messages autoUpdate="true" closable="true" />
 
 			<p:toolbar style="margin-top: 20px">
+<<<<<<< HEAD
 
                                 <p:toolbarGroup align="center">
                                 <p:outputLabel value="Proveedor  " for="proveedor"/>
@@ -25,6 +26,20 @@
                                          required="true" converter="#{proveedorConverter}">
 	    			<f:selectItem itemLabel="Seleccione el Proveedor"/>
 	    			<f:selectItems value="#{registroCompraBBean.proveedores}" var="proveedor"
+=======
+				<p:toolbarGroup>
+					<p:commandButton  icon= "ui-icon-cart" value="Agregar" id="botonGuardar" 
+					 update="@form"/>
+                                        <p:commandButton  icon= "ui-icon-cart" value="Carga por Archivo" id="botonArchivo" 
+					 update="@form"/>
+				</p:toolbarGroup>
+                                <p:toolbarGroup align="center">
+                                <p:outputLabel value="Proveedor  " for="proveedor"/>
+                                    <p:selectOneMenu id="proveedor" value="#{compraBBean.proveedor}" style="width:300px"
+                                         required="true" converter="#{proveedorConverter}">
+	    			<f:selectItem itemLabel="Seleccione el Proveedor"/>
+	    			<f:selectItems value="#{compraBBean.proveedores}" var="proveedor"
+>>>>>>> f2962048fee8ba2b7c36a1e44088c99aee84061b
 	    				  itemValue="#{proveedor}" itemLabel="#{proveedor.nombre} #{proveedor.apellido}"/>
                                 </p:selectOneMenu>
                                 </p:toolbarGroup>
@@ -45,10 +60,17 @@
 	    				  />
 	    		</p:selectOneMenu>
 	    		
+<<<<<<< HEAD
 				<p:outputLabel value="Cantidad" for="cantidad" />
 				<p:inputText id="cantidad" value="#{registroCompraBBean.compradetalle.cantidad}"
 					size="40"
 					maxlength="70" />
+=======
+				<p:outputLabel value="Cantidad" for="detalles" />
+				<p:inputText id="detalles" value="#{registroCompraBBean.compradetalle.cantidad}"
+					size="20"
+					maxlength="20" />
+>>>>>>> f2962048fee8ba2b7c36a1e44088c99aee84061b
                                 
                                 <p:commandButton value="Agregar" id="botonAgregar" actionListener="#{registroCompraBBean.agregarDetalle()}"
 					 update="@form"/>
