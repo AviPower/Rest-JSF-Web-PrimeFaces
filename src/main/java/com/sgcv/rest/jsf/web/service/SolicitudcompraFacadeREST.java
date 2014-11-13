@@ -12,12 +12,14 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -56,12 +58,6 @@ public class SolicitudcompraFacadeREST {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Solicitudcompra> findAll() {
-        return solicitudcomprabean.findAll();
-    }
-
-    @GET
     @Path("{from}/{to}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Solicitudcompra> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
@@ -74,5 +70,16 @@ public class SolicitudcompraFacadeREST {
     public String countREST() {
         return String.valueOf(solicitudcomprabean.count());
     }
+    
+     /** Servicio de Listar Clientes **/
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Solicitudcompra> listar(@QueryParam("inicio") @DefaultValue("0") String inicio, 
+            @QueryParam("cantidad") @DefaultValue("10") String cantidad, 
+            @QueryParam("orderBy") @DefaultValue("id") String orderBy,
+            @QueryParam("orderDir") @DefaultValue("ASC") String orderDir) {
+        return solicitudcomprabean.listar(inicio, cantidad, orderBy, orderDir);
+    }
+    
     
 }
