@@ -17,29 +17,30 @@
 	    	
 	    	<p:messages autoUpdate="true" closable="true" />
 	    	
-	    	<p:dataTable id="productoTable"  var="producto"
+	    	<p:dataTable id="solicitudTable" value="#{solicitudCompraBBean.documents}" var="solicitud"
 	    		 style="margin-top: 20px" 
 	    		emptyMessage="Ningun producto encontrado. Presione el botón Nuevo para agregar un nuevo ítem" rows="10"
-	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+                        paginatorTemplate="{PreviousPageLink} {NextPageLink} "
+	    		paginator="true"  paginatorPosition="bottom">
 	    		
-	    		<p:column headerText="Código" style="width:70px">
-	    			<h:outputText value="" />
+	    		<p:column headerText="Código" style="width:10%; text-align: center">
+	    			<h:outputText value="#{colicitud.id} >OOOOO" />
 	    		</p:column>
-                        <p:column headerText="Fecha" style="width:80px">
-	    			<h:outputText value="" />
+                        <p:column headerText="Fecha" style="width:30%; text-align: center">
+                                <h:outputText value="#{solicitud.fecha}">
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                                </h:outputText>
 	    		</p:column>
-	    		<p:column  headerText="Producto" style="width:100px"
-	    			filterMatchMode="contains" filterStyle="width:200px">
-	    			
+	    		<p:column  headerText="Producto" style="width:40%; text-align: center">
+	    			<h:outputText value="#{solicitud.producto.nombre}"/>
 	    		</p:column>
 	    		
-	    		<p:column  headerText="Proveedor" style="width:100px"
-	    			filterMatchMode="contains" filterStyle="width:120px">
-	    			
+	    		<p:column  headerText="Proveedor" style="width:40%; text-align: center"
+	    			>
+	    			<h:outputText value="#{solicitud.producto.proveedor.nombre} #{solicitud.producto.proveedor.apellido}" />
 	    		</p:column>
-                        <p:column  headerText="Stock Escaso" style="width:100px"
-	    			filterMatchMode="contains" filterStyle="width:120px">
-	    			
+                        <p:column  headerText="Stock Escaso" style="width:30%; text-align: center">
+	    			<h:outputText value="#{solicitud.producto.stock}"/>
 	    		</p:column>
 	    		
 	    	</p:dataTable>
@@ -50,7 +51,7 @@
 	    		<p:button value="No" onclick="confirmacionExclusion.hide(); return false;" />
 	    		<p:commandButton value="Si" oncomplete="confirmacionExclusion.hide();"
 	    			 process="@this"
-	    			update=":frmBusqueda:productoTable" />
+	    			update=":frmBusqueda:solicitudTable" />
 	    	</p:confirmDialog>
     	</h:form>
     </ui:define>

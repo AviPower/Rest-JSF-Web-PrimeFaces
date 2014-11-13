@@ -7,7 +7,9 @@
 	xmlns:o="http://omnifaces.org/ui">
 	
 	<ui:define name="titulo">Registro Compra</ui:define>
-	
+	<f:metadata>
+		<f:viewParam name="compra" value="#{registroCompraBBean.compra}" converter="#{compraConverter}"/>
+	</f:metadata>
 	<ui:define name="cuerpo">
 
 		<h:form>
@@ -22,6 +24,15 @@
                                         <p:commandButton  icon= "ui-icon-cart" value="Carga por Archivo" id="botonArchivo" 
 					 update="@form"/>
 				</p:toolbarGroup>
+                                <p:toolbarGroup align="center">
+                                <p:outputLabel value="Proveedor  " for="proveedor"/>
+                                    <p:selectOneMenu id="proveedor" value="#{compraBBean.proveedor}" style="width:300px"
+                                         required="true" converter="#{proveedorConverter}">
+	    			<f:selectItem itemLabel="Seleccione el Proveedor"/>
+	    			<f:selectItems value="#{compraBBean.proveedores}" var="proveedor"
+	    				  itemValue="#{proveedor}" itemLabel="#{proveedor.nombre} #{proveedor.apellido}"/>
+                                </p:selectOneMenu>
+                                </p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Volver" outcome="/gestion/compra/ListadoCompra.xhtml"/>
 				</p:toolbarGroup>
@@ -31,16 +42,18 @@
 				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
 				<p:outputLabel value="Producto" for="producto"/>
-	    		<p:selectOneMenu id="producto"  style="width:360px">
+	    		<p:selectOneMenu id="producto" value="#{registroCompraBBean.compradetalle.producto}" style="width:300px"
+                                         required="true" converter="#{productoConverter}">
 	    			<f:selectItem itemLabel="Seleccione el Producto"/>
-	    			<f:selectItems  var="producto"
+	    			<f:selectItems value="#{registroCompraBBean.productos}" var="producto"
+                                               itemValue="#{producto}" itemLabel="#{producto.nombre}"
 	    				  />
 	    		</p:selectOneMenu>
 	    		
 				<p:outputLabel value="Cantidad" for="detalles" />
-				<p:inputText id="detalles"
+				<p:inputText id="detalles" value="#{registroCompraBBean.compradetalle.cantidad}"
 					size="20"
-					maxlength="70" />
+					maxlength="20" />
                                 
 			</p:panelGrid>
                         
