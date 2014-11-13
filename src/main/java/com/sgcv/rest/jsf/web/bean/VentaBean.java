@@ -60,4 +60,9 @@ public class VentaBean extends AbstractFacade<Venta> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    /** Llamada a Listar del EJB **/
+    public List<Venta> listar(String inicio, String cantidad, String orderBy, String orderDir) {
+        return super.listar(inicio, cantidad, orderBy, orderDir, "Venta");
+    }
 }

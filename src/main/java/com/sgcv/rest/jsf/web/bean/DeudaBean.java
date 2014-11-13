@@ -61,4 +61,9 @@ public class DeudaBean extends AbstractFacade<Deuda>{
     protected EntityManager getEntityManager() {
         return em;
     }  
+    
+    /** Llamada a Listar del EJB **/
+    public List<Deuda> listar(String inicio, String cantidad, String orderBy, String orderDir) {
+        return super.listar(inicio, cantidad, orderBy, orderDir, "Deuda");
+    }
 }

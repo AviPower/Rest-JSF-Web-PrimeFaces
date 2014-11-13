@@ -12,12 +12,14 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -55,10 +57,14 @@ public class FacturaFacadeREST {
         return facturabean.find(id);
     }
 
+     /** Servicio de Listar Clientes **/
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Factura> findAll() {
-        return facturabean.findAll();
+    public List<Factura> listar(@QueryParam("inicio") @DefaultValue("0") String inicio, 
+            @QueryParam("cantidad") @DefaultValue("10") String cantidad, 
+            @QueryParam("orderBy") @DefaultValue("id") String orderBy,
+            @QueryParam("orderDir") @DefaultValue("ASC") String orderDir) {
+        return facturabean.listar(inicio, cantidad, orderBy, orderDir);
     }
 
     @GET

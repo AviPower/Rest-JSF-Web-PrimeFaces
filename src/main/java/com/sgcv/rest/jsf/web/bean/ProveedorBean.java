@@ -61,4 +61,9 @@ public class ProveedorBean extends AbstractFacade<Proveedor>{
     protected EntityManager getEntityManager() {
         return em;
     }   
+    
+    /** Llamada a Listar del EJB **/
+    public List<Proveedor> listar(String inicio, String cantidad, String orderBy, String orderDir) {
+        return super.listar(inicio, cantidad, orderBy, orderDir, "Proveedor");
+    }
 }
